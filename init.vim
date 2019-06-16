@@ -1,3 +1,5 @@
+colorscheme darcula
+
 set background=dark
 set hlsearch
 set ignorecase
@@ -102,12 +104,9 @@ autocmd FileType c     set dictionary=~/.vim/dict/c.dict
 autocmd FileType cpp   set dictionary=~/.vim/dict/cpp.dict
 
 
-
-
-
-
-
-" Plug
+" +------+
+" | Plug |
+" +------+
 call plug#begin()
 
   Plug 'scrooloose/nerdtree'
@@ -123,9 +122,6 @@ call plug#begin()
 
 call plug#end()
 
-" Configuration for vim-scala
-au BufRead,BufNewFile *.sbt set filetype=scala
-
 
 " +--------+
 " | vimtab |
@@ -138,21 +134,6 @@ au BufRead,BufNewFile *.sbt set filetype=scala
   nnoremap <silent> tn :<C-u>tabnext<CR>
   nnoremap <silent> tp :<C-u>tabprevious<CR>
 
-" +-----------------+
-" | FuzzyFinder.vim |
-" +-----------------+
-
-nnoremap <Space>f f
-nnoremap <Space>F F
-nnoremap f <Nop>
-nnoremap <silent> fb :<C-u>FuzzyFinderBuffer!<CR>
-nnoremap <silent> ff :<C-u>FuzzyFinderFile! <C-r>=expand('%:~:.')[:-2-len(expand('%:~:.:t'))]<CR><CR>
-nnoremap <silent> fm :<C-u>FuzzyFinderMruFile!<CR>
-nnoremap <silent> tb :<C-u>tabnew<CR>:tabmove<CR>:FuzzyFinderBuffer!<CR>
-nnoremap <silent> tf :<C-u>tabnew<CR>:tabmove<CR>:FuzzyFinderFile! <C-r>=expand('#:~:.')[:-2-len(expand('#:~:.:t'))]<CR><CR>
-nnoremap <silent> tm :<C-u>tabnew<CR>:tabmove<CR>:FuzzyFinderMruFile!<CR>
-
-
 " +-----+
 " | FZF |
 " +-----+
@@ -160,18 +141,9 @@ set rtp+=~/.fzf
 nnoremap <silent> fzf :<C-u>FZF<CR>
 
 
-
 "delete space
 :map <silent> <F1> :%s /\s\+$//gc<CR>
 
-
-" folcom
-nnoremap <silent> zc zm
-nnoremap <silent> zo zr
-
-
-" Move to Current Directory
-nnoremap <silent> cd :cd %:p:h<CR>
 
 " map
 map <silent> <ESC><ESC> :noh<CR>
@@ -187,24 +159,7 @@ let java_highlight_all=1
 let java_highlight_function="style"
 let java_allow_cpp_keywords=1
 
-" for MacVim
-if has('gui_macvim')
-  colorscheme peachpuff
-else
-  colorscheme darcula
-endif
-
-" map <silent> ts i{t}<ESC>
-" map <silent> te i{/t}<ESC>
-" map <silent> ta a{/t}<ESC>
-"
-" map <silent> tt i{t}<ESC>ea{/t}<ESC>
-"
-" map <silent> qq a<CR><ESC>
-
 " for source master
 :map <silent> <F2> :%s/^\d\d*\ */    '/g<CR>:%s/\ *201[45].*/',/g<CR>
-
-
 
 map <C-n> :NERDTreeToggle<CR>
