@@ -1,5 +1,3 @@
-colorscheme darcula
-
 set background=dark
 set hlsearch
 set ignorecase
@@ -121,6 +119,8 @@ call plug#begin()
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 call plug#end()
+
+colorscheme darcula
 
 
 " +--------+
