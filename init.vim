@@ -118,6 +118,10 @@ call plug#begin()
   Plug 'derekwyatt/vim-scala'
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
+  " highlight
+  Plug 'leafgarland/typescript-vim'
+  Plug 'digitaltoad/vim-pug'
+
 call plug#end()
 
 colorscheme darcula
@@ -162,4 +166,4 @@ let java_allow_cpp_keywords=1
 " for source master
 :map <silent> <F2> :%s/^\d\d*\ */    '/g<CR>:%s/\ *201[45].*/',/g<CR>
 
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeFocus<CR>
