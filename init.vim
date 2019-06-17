@@ -126,6 +126,7 @@ call plug#end()
 
 colorscheme darcula
 
+let NERDTreeWinSize=40
 
 " +--------+
 " | vimtab |
@@ -145,10 +146,6 @@ set rtp+=~/.fzf
 nnoremap <silent> fzf :<C-u>FZF<CR>
 
 
-"delete space
-:map <silent> <F1> :%s /\s\+$//gc<CR>
-
-
 " map
 map <silent> <ESC><ESC> :noh<CR>
 
@@ -162,6 +159,9 @@ set sm
 let java_highlight_all=1
 let java_highlight_function="style"
 let java_allow_cpp_keywords=1
+
+"delete space
+:map <silent> <F1> :%s /\s\+$//gc<CR>
 
 " for source master
 :map <silent> <F2> :%s/^\d\d*\ */    '/g<CR>:%s/\ *201[45].*/',/g<CR>
