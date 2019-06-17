@@ -109,6 +109,7 @@ call plug#begin()
 
   Plug 'scrooloose/nerdtree'
   Plug 'blueshirts/darcula'
+  Plug 'Yggdroot/indentLine'
 
   " Git
   Plug 'airblade/vim-gitgutter'
@@ -126,6 +127,7 @@ call plug#end()
 
 colorscheme darcula
 
+" NERDTree
 let NERDTreeWinSize=40
 
 " +--------+
@@ -167,3 +169,4 @@ let java_allow_cpp_keywords=1
 :map <silent> <F2> :%s/^\d\d*\ */    '/g<CR>:%s/\ *201[45].*/',/g<CR>
 
 map <C-n> :NERDTreeFocus<CR>
+
