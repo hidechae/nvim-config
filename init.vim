@@ -4,7 +4,6 @@ set ignorecase
 set smartcase
 set wildignorecase
 set visualbell
-"set foldmethod=marker
 set incsearch
 set number
 set backspace=indent,eol,start
@@ -18,8 +17,6 @@ set splitright
 set statusline=%F%m%r%h%w\ [ENC=%{&enc}]\ [FENC=%{&fenc}]\ %{fugitive#statusline()}\ %=\ %3l/%3L,%3v\ %10P\ %4m
 set laststatus=2
 
-"helptags $HOME/.vim/doc
-
 " file encoding
 set fileencoding=utf-8
 set encoding=utf-8
@@ -27,25 +24,19 @@ set encoding=utf-8
 syntax on
 
 "wildmenu
-"set wildmenu
-"set wildmode=list,longest,full
 set wildmode=list:longest
 
 "visualize tab, space, etc
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:%
-"set listchars=tab:?-,trail:-,eol:?,extends:?,precedes:?,nbsp:%
 
 " tab
 set tabstop=2
 set shiftwidth=2
 set expandtab
-" set softtabstop=4
 
 " search by rotation
 set wrapscan
-
-" set smartindent
 
 " filetype and tabwidth
 autocmd BufNewFile,BufRead *.rb       set filetype=ruby       tabstop=2 shiftwidth=2
