@@ -123,6 +123,10 @@ call plug#begin()
   Plug 'leafgarland/typescript-vim'
   Plug 'digitaltoad/vim-pug'
 
+  " FZF
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+
 call plug#end()
 
 colorscheme darcula
@@ -144,9 +148,8 @@ let NERDTreeWinSize=40
 " +-----+
 " | FZF |
 " +-----+
-set rtp+=~/.fzf
-nnoremap <silent> fzf :<C-u>FZF<CR>
-
+" set rtp+=~/.fzf
+" nnoremap <silent> fzf :<C-u>FZF<CR>
 
 " map
 map <silent> <ESC><ESC> :noh<CR>
