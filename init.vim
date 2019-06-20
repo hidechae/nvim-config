@@ -133,15 +133,16 @@ let NERDTreeWinSize=40
 
 function! NERDTreeOpen()
   let file = expand("%")
-  if file == ""
+  if file =~ "^NERD_tree_"
+    wincmd p
+  elseif file == ""
     NERDTreeFocus
   else
     NERDTreeFind
   endif
 endfunction
 
-command! NERDTreeOpen call NERDTreeOpen()
-map <C-n> :NERDTreeOpen<CR>
+map <C-n> :call NERDTreeOpen()<CR>
 
 
 " +---------+
@@ -167,7 +168,17 @@ set signcolumn=yes
 " | FZF |
 " +-----+
 set rtp+=~/.fzf
-nnoremap <silent> fzf :<C-u>FZF<CR>
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+  \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \ : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+  \ <bang>0)
+
+nnoremap <C-g> :Rg<Space>
+nnoremap <C-o> :Files<CR>
+
 
 " map
 map <silent> <ESC><ESC> :noh<CR>
