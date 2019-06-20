@@ -116,6 +116,7 @@ call plug#begin()
   " highlight
   Plug 'leafgarland/typescript-vim'
   Plug 'digitaltoad/vim-pug'
+  Plug 'gko/vim-coloresque'
 
   " FZF
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -125,8 +126,31 @@ call plug#end()
 
 colorscheme darcula
 
-" NERDTree
+" +----------+
+" | NERDTree |
+" +---==-----+
 let NERDTreeWinSize=40
+
+function! NERDTreeOpen()
+  let file = expand("%")
+  if file == ""
+    NERDTreeFocus
+  else
+    NERDTreeFind
+  endif
+endfunction
+
+command! NERDTreeOpen call NERDTreeOpen()
+map <C-n> :NERDTreeOpen<CR>
+
+
+" +---------+
+" | coc.vim |
+" +---------+
+set cmdheight=2
+set updatetime=300
+set signcolumn=yes
+
 
 " +--------+
 " | vimtab |
@@ -142,8 +166,8 @@ let NERDTreeWinSize=40
 " +-----+
 " | FZF |
 " +-----+
-" set rtp+=~/.fzf
-" nnoremap <silent> fzf :<C-u>FZF<CR>
+set rtp+=~/.fzf
+nnoremap <silent> fzf :<C-u>FZF<CR>
 
 " map
 map <silent> <ESC><ESC> :noh<CR>
@@ -164,6 +188,4 @@ let java_allow_cpp_keywords=1
 
 " for source master
 :map <silent> <F2> :%s/^\d\d*\ */    '/g<CR>:%s/\ *201[45].*/',/g<CR>
-
-map <C-n> :NERDTreeFocus<CR>
 
