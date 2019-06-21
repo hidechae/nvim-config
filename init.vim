@@ -176,8 +176,22 @@ command! -bang -nargs=* Rg
   \ : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
   \ <bang>0)
 
+function! s:get_git_root()
+  let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
+  return v:shell_error ? '' : root
+endfunction
+
+function! FileFind()
+  let s:git_root = s:get_git_root()
+  if empty(s:git_root)
+    Files
+  else
+    GFiles
+  endif
+endfunction
+
 nnoremap <C-g> :Rg<Space>
-nnoremap <C-o> :Files<CR>
+nnoremap <C-o> :call FileFind()<CR>
 
 
 " map
