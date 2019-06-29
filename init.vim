@@ -1,3 +1,6 @@
+" +----------------+
+" | Basic Settings |
+" +----------------+
 set background=dark
 set hlsearch
 set ignorecase
@@ -14,7 +17,6 @@ set nofoldenable
 set splitbelow
 set splitright
 
-set statusline=%F%m%r%h%w\ [ENC=%{&enc}]\ [FENC=%{&fenc}]\ %{fugitive#statusline()}\ %=\ %3l/%3L,%3v\ %10P\ %4m
 set laststatus=2
 
 " file encoding
@@ -41,7 +43,10 @@ set wrapscan
 " set cursorline
 set cursorcolumn
 
-" filetype and tabwidth
+
+" +-------------------+
+" | Fileytpe Settings |
+" +-------------------+
 autocmd BufNewFile,BufRead *.rb       set filetype=ruby       tabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.jbuilder set filetype=ruby       tabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.py       set filetype=python     tabstop=4 shiftwidth=4
@@ -102,8 +107,9 @@ autocmd FileType cpp   set dictionary=~/.vim/dict/cpp.dict
 call plug#begin()
 
   Plug 'scrooloose/nerdtree'
-  Plug 'blueshirts/darcula'
+  Plug 'joshdick/onedark.vim'
   Plug 'Yggdroot/indentLine'
+  Plug 'vim-airline/vim-airline'
 
   " Git
   Plug 'airblade/vim-gitgutter'
@@ -122,19 +128,25 @@ call plug#begin()
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
 
+  " Snippet
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
+
 call plug#end()
 
-colorscheme darcula
+colorscheme onedark
+
 
 " +----------+
 " | NERDTree |
-" +---==-----+
-let NERDTreeWinSize=40
+" +----------+
+let NERDTreeWinSize=50
 
 function! NERDTreeOpen()
   let file = expand("%")
   if file =~ "^NERD_tree_"
-    wincmd p
+"    wincmd p
+    NERDTreeToggle
   elseif file == ""
     NERDTreeFocus
   else
@@ -152,6 +164,12 @@ set cmdheight=2
 set updatetime=300
 set signcolumn=yes
 
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 
 " +--------+
 " | vimtab |
@@ -164,17 +182,17 @@ set signcolumn=yes
   nnoremap <silent> tn :<C-u>tabnext<CR>
   nnoremap <silent> tp :<C-u>tabprevious<CR>
 
+
 " +-----+
 " | FZF |
 " +-----+
 set rtp+=~/.fzf
 
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-  \ : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-  \ <bang>0)
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%', '?'),
+  \                 <bang>0)
 
 function! s:get_git_root()
   let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
@@ -190,11 +208,35 @@ function! FileFind()
   endif
 endfunction
 
-nnoremap <C-g> :Rg<Space>
+nnoremap <C-g> :Ag<Space>
 nnoremap <C-o> :call FileFind()<CR>
+" nnoremap <C-m> :History<CR>
+" nnoremap <S-o> :GFiles?<CR>
+
+nnoremap <silent> ff  :Files<CR>
+nnoremap <silent> fgs :GFiles?<CR>
+nnoremap <silent> fm  :History<CR>
+nnoremap <silent> fs  :Snippets<CR>
 
 
-" map
+" +---------+
+" | Snippet |
+" +---------+
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+let g:UltiSnipsSnippetDirectories=["snippets/local"]
+
+
+" +---------+
+" | mapping |
+" +---------+
 map <silent> <ESC><ESC> :noh<CR>
 
 " like shell
