@@ -59,6 +59,7 @@ autocmd BufNewFile,BufRead *.html.tag set filetype=html       tabstop=2 shiftwid
 autocmd BufNewFile,BufRead *.scss     set filetype=scss       tabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.css      set filetype=scss       tabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.coffee   set filetype=coffee     tabstop=2 shiftwidth=2
+autocmd BufNewFile,BufRead *.js       set filetype=typescript tabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.ts       set filetype=typescript tabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.jsx      set filetype=javascript tabstop=2 shiftwidth=2
 autocmd BufNewFile,BufRead *.jade     set filetype=pug        tabstop=2 shiftwidth=2
@@ -131,6 +132,9 @@ call plug#begin()
   " Snippet
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
+
+  " Terraform
+  Plug 'hashivim/vim-terraform'
 
 call plug#end()
 
@@ -256,3 +260,6 @@ let java_allow_cpp_keywords=1
 " for source master
 :map <silent> <F2> :%s/^\d\d*\ */    '/g<CR>:%s/\ *201[45].*/',/g<CR>
 
+imap <C-j> <esc>
+vmap <C-j> <esc>
+noremap! <C-j> <esc>
