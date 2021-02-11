@@ -110,7 +110,7 @@ call plug#begin()
   Plug 'scrooloose/nerdtree'
   Plug 'joshdick/onedark.vim'
   Plug 'Yggdroot/indentLine'
-  Plug 'vim-airline/vim-airline'
+"  Plug 'vim-airline/vim-airline'
 
   " Git
   Plug 'airblade/vim-gitgutter'
@@ -263,3 +263,26 @@ let java_allow_cpp_keywords=1
 imap <C-j> <esc>
 vmap <C-j> <esc>
 noremap! <C-j> <esc>
+
+function! ProfileCursorMove() abort
+  let profile_file = expand('~/.config/nvim/vim-profile.log')
+  if filereadable(profile_file)
+    call delete(profile_file)
+  endif
+
+  normal! gg
+  normal! zR
+
+  execute 'profile start ' . profile_file
+  profile func *
+  profile file *
+
+  augroup ProfileCursorMove
+    autocmd!
+    autocmd CursorHold <buffer> profile pause | q
+  augroup END
+
+  for i in range(100)
+    call feedkeys('j')
+  endfor
+endfunction
